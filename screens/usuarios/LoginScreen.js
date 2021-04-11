@@ -1,18 +1,18 @@
 import React, {useContext, useState} from 'react';
 import {TouchableOpacity, StyleSheet, View, ScrollView} from 'react-native';
 import {Text} from 'react-native-paper';
-import Background from '../components/Background';
-import Logo from '../components/Logo';
-import Header from '../components/Header';
-import Button from '../components/Button';
-import TextInput from '../components/TextInput';
-import BackButton from '../components/BackButton';
-import {theme} from '../core/theme';
-import {emailValidator} from '../helpers/emailValidator';
-import {passwordValidator} from '../helpers/passwordValidator';
+import Background from '../../components/Background';
+import Logo from '../../components/Logo';
+import Header from '../../components/Header';
+import Button from '../../components/Button';
+import TextInput from '../../components/TextInput';
+import BackButton from '../../components/BackButton';
+import {theme} from '../../core/theme';
+import {emailValidator} from '../../helpers/emailValidator';
+import {passwordValidator} from '../../helpers/passwordValidator';
 import {useNavigation} from '@react-navigation/native';
 import {NavigationActions} from 'react-navigation';
-import {AppContext} from '../context/AppContext';
+import {AppContext} from '../../context/AppContext';
 
 export default function LoginScreen({navigation}) {
   // const navigation = useNavigation()
@@ -77,7 +77,7 @@ export default function LoginScreen({navigation}) {
       <Background>
         {/* <BackButton goBack={navigation.goBack} /> */}
         <Logo />
-        <Header>Welcome back.</Header>
+        <Header>RS Rentcar</Header>
         <TextInput
           label="Email"
           returnKeyType="next"

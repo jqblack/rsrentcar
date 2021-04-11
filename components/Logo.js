@@ -2,7 +2,7 @@ import React from 'react'
 import { Image, StyleSheet } from 'react-native'
 
 export default function Logo() {
-  return <Image source={require('../src/logo10.png')} style={styles.image} />
+  return <Image source={require('../src/lineslambo.jpg')} style={styles.image} />
 }
 
 const styles = StyleSheet.create({

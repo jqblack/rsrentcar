@@ -36,9 +36,15 @@ const nuevoRegistro = ({ navigation, route }) => {
   };
 
   const formatofecha = (date) => {
-    const options = { year: 'numeric', month: 'long', day: '2-digit' }
-    const nuevafecha = new Date(date);
-    return nuevafecha.toLocaleDateString('es-ES', options);
+  
+    
+    const getDateNacimiento = new Date(date);
+      const getDay = getDateNacimiento.getDate();
+      const getMonth = getDateNacimiento.getMonth() + 1;
+      const getYear = getDateNacimiento.getFullYear();
+
+      const res = getDay + '/' + getMonth + '/' + getYear;
+      return res;
   }
 
   const hideDatePicker = () => {

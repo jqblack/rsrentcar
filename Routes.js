@@ -10,26 +10,52 @@ import NuevoDepartamento from './screens/departamentos';
 import Servicios from './screens/servicios';
 import VerServisios from './screens/verServicios';
 import {createDrawerNavigator} from '@react-navigation/drawer';
-
+import LoginScreen from './screens/usuarios/LoginScreen'
+import RegisterScreen from './screens/usuarios/RegisterScreen'
+import Dashboard from './screens/usuarios/Dashboard'
+import AgregarRencar from './screens/rentcar/agregarRentcar'
 import {AppContext} from './context/AppContext';
 
 //stack
 const Stack = createStackNavigator();
 const Drawer = createDrawerNavigator();
 
-function StackScreens() {
+// function StackScreens() {
+//   return (
+//     <Stack.Navigator
+//       initialRouteName="verResidenciales"
+//       screenOptions={{headerShown: false}}>
+//       <Stack.Screen name="verResidenciales" component={VerResidenciales} />
+//       <Stack.Screen name="verTorres" component={VerTorres} />
+//       <Stack.Screen name="verDepartamentos" component={VerApartamentos} />
+//       <Stack.Screen name="NuevoDepartamento" component={NuevoDepartamento} />
+//       <Stack.Screen name="NuevaTorre" component={NuevaTorre} />
+//       <Stack.Screen name="NuevoResidencial" component={NuevoResidencial} />
+//       <Stack.Screen name="NuevoServicio" component={Servicios} />
+//       <Stack.Screen name="verServicios" component={VerServisios} />
+//     </Stack.Navigator>
+//   );
+// }
+
+function StackScreensUser() {
   return (
     <Stack.Navigator
-      initialRouteName="verResidenciales"
+      initialRouteName="LoginScreen"
       screenOptions={{headerShown: false}}>
-      <Stack.Screen name="verResidenciales" component={VerResidenciales} />
-      <Stack.Screen name="verTorres" component={VerTorres} />
-      <Stack.Screen name="verDepartamentos" component={VerApartamentos} />
-      <Stack.Screen name="NuevoDepartamento" component={NuevoDepartamento} />
-      <Stack.Screen name="NuevaTorre" component={NuevaTorre} />
-      <Stack.Screen name="NuevoResidencial" component={NuevoResidencial} />
-      <Stack.Screen name="NuevoServicio" component={Servicios} />
-      <Stack.Screen name="verServicios" component={VerServisios} />
+      <Stack.Screen name="LoginScreen" component={LoginScreen} />
+      <Stack.Screen name="RegistroUsuario" component={RegisterScreen} />
+      <Stack.Screen name="DashBoard" component={Dashboard} />
+    </Stack.Navigator>
+  );
+}
+
+function StackScreensRentcar() {
+  return (
+    <Stack.Navigator
+      initialRouteName="agregarRentcar"
+      screenOptions={{headerShown: false}}>
+      <Stack.Screen name="verRentcars" component={LoginScreen} />
+      <Stack.Screen name="agregarRentcar" component={AgregarRencar} />
     </Stack.Navigator>
   );
 }
@@ -45,7 +71,7 @@ const Routes = () => {
     },
     {
       name: 'ListaResidenciales',
-      component: () => <StackScreens />,
+      component: () => <StackScreensUser />,
       rol: [2, 4],
     },
     {
@@ -54,8 +80,8 @@ const Routes = () => {
       rol: [3, 2, 4],
     },
     {
-      name: '3',
-      component: () => <Text>Lista de residenciales</Text>,
+      name: 'Rentcars',
+      component: () => <StackScreensRentcar/>,
       rol: [1, 4],
     },
   ];
