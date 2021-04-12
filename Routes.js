@@ -14,6 +14,9 @@ import LoginScreen from './screens/usuarios/LoginScreen'
 import RegisterScreen from './screens/usuarios/RegisterScreen'
 import Dashboard from './screens/usuarios/Dashboard'
 import AgregarRencar from './screens/rentcar/agregarRentcar'
+import verRencar from './screens/rentcar/verRentcars'
+import verCarros from './screens/rentcar/verCarros'
+import AgregarCarro from './screens/rentcar/agregarCarros'
 import {AppContext} from './context/AppContext';
 
 //stack
@@ -52,10 +55,12 @@ function StackScreensUser() {
 function StackScreensRentcar() {
   return (
     <Stack.Navigator
-      initialRouteName="agregarRentcar"
+      initialRouteName="verRentcars"
       screenOptions={{headerShown: false}}>
-      <Stack.Screen name="verRentcars" component={LoginScreen} />
+      <Stack.Screen name="verRentcars" component={verRencar} />
       <Stack.Screen name="agregarRentcar" component={AgregarRencar} />
+      <Stack.Screen name="verCarros" component={verCarros} />
+      <Stack.Screen name="agregarCarro" component={AgregarCarro} />
     </Stack.Navigator>
   );
 }
