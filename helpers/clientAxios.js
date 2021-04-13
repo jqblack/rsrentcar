@@ -1,7 +1,7 @@
 import axios from 'axios';
 
 const ClientAxios = axios.create({
-  baseURL: 'http://25.31.135.148:8080/rent/',
+  baseURL: 'http://10.0.0.7:8080/rent/',
 });
 
 export default ClientAxios;

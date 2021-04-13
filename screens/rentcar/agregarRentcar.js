@@ -45,7 +45,7 @@ const NuevaRentcar = ({ navigation, route }) => {
 
     //estados
     const [nombre, setNombre] = useState('');
-    const [area, setArea] = useState('');
+  
     // const [region, setRegion] = useState('');
     // const [mostrarRegion, setMostrarRegion] = useState(false);
     const [provincia, setProvincia] = useState('');
@@ -61,54 +61,9 @@ const NuevaRentcar = ({ navigation, route }) => {
     //funciones
 
     //fetch
-    useEffect(() => {
-        const getdata = async () => {
-            try {
-                let response = await fetch(
-                    'http://25.31.135.148/API/complementos/get_provincias',
-                    {
-                        method: 'POST',
-                        headers: {
-                            Accept: 'application/json',
-                            'Content-Type': 'application/json',
-                        },
-                        body: JSON.stringify({
-                            key: '291290336b75b259b77e181c87cc974f',
-                            data: {},
-                        }),
-                    },
-                );
-                provincias = await response.json();
-                return provincias;
-            } catch (error) {
-                console.error(error);
-            }
-        };
-        // getdata();
-    }, []);
+  
 
-    // const {setConsultar} = route.params;
-    // const postdata = async () => {
 
-    //   try {
-    //     let response = await fetch(
-    //       'http://10.0.0.12:8080/API/residencial/test_sending',
-    //       {
-    //         method: 'POST',
-    //         headers: {
-    //           'Accept': 'application/json',
-    //           'Content-Type': 'application/json'
-    //         },
-    //         body: JSON.stringify({ key: '291290336b75b259b77e181c87cc974f', data: { idprovincia: provincia } })
-    //       }
-    //     );
-
-    //   } catch (error) {
-    //     console.error(error);
-    //   }
-
-    //   console.log(provincia);
-    // };
 
     const gardarRentcar = async () => {
         //validar
@@ -117,8 +72,7 @@ const NuevaRentcar = ({ navigation, route }) => {
             // area === '' ||
             provincia === '' ||
             municipio === '' ||
-            sector === '' ||
-            isNaN(area)
+            sector === '' 
         ) {
             alert('Revise los campos');
             return;
@@ -129,7 +83,7 @@ const NuevaRentcar = ({ navigation, route }) => {
             numpro: Number(provincia),
             nummuni: Number(municipio),
             numsec: Number(sector),
-            iduser:user.id,
+            iduser:user.ID,
         };
         // Consulta
         try {
@@ -147,27 +101,12 @@ const NuevaRentcar = ({ navigation, route }) => {
             console.log(error);
             alert(error);
         }
-console.log(rentcar)
+
 
     };
 
     //Para dropdow Condicional
-    const municipios = async provincia => {
-        listamunicipios = await ClientAxios.post('complementos/get_municipio', {
-            key: '291290336b75b259b77e181c87cc974f',
-            data: { idprovincia: provincia },
-        });
-        // listamunicipios=await axios.post("http://10.0.0.12:8080/API/residencial/get_provincias",{ key: '291290336b75b259b77e181c87cc974f', data: { idprovincia: provincia } });
-        setProvincia(provincia);
-    };
-
-    const sectores = async municipio => {
-        listamunicipios = await ClientAxios.post('complementos/get_sector', {
-            key: '291290336b75b259b77e181c87cc974f',
-            data: { idprovincia: provincia },
-        });
-        setMunicipio(municipio);
-    };
+  
 
     return (
         <ScreenHeader title="Rentcars">

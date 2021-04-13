@@ -18,37 +18,58 @@ import verRencar from './screens/rentcar/verRentcars'
 import verCarros from './screens/rentcar/verCarros'
 import AgregarCarro from './screens/rentcar/agregarCarros'
 import {AppContext} from './context/AppContext';
+import Averia from './screens/averias/reporteAveria' 
+import VerAveria from './screens/averias/verAverias' 
+import DetalleAveria from './screens/averias/detalleAveria'
 
 //stack
 const Stack = createStackNavigator();
 const Drawer = createDrawerNavigator();
 
-// function StackScreens() {
-//   return (
-//     <Stack.Navigator
-//       initialRouteName="verResidenciales"
-//       screenOptions={{headerShown: false}}>
-//       <Stack.Screen name="verResidenciales" component={VerResidenciales} />
-//       <Stack.Screen name="verTorres" component={VerTorres} />
-//       <Stack.Screen name="verDepartamentos" component={VerApartamentos} />
-//       <Stack.Screen name="NuevoDepartamento" component={NuevoDepartamento} />
-//       <Stack.Screen name="NuevaTorre" component={NuevaTorre} />
-//       <Stack.Screen name="NuevoResidencial" component={NuevoResidencial} />
-//       <Stack.Screen name="NuevoServicio" component={Servicios} />
-//       <Stack.Screen name="verServicios" component={VerServisios} />
-//     </Stack.Navigator>
-//   );
-// }
+//DashBoard
 
-function StackScreensUser() {
+const Routes = () => {
+  const {user} = useContext(AppContext);
+
+  const pantallasDrawer = [
+    {
+      name: 'Home',
+      component: () => <StackScreensUser/> ,
+      rol: [1],
+    },
+    {
+      name: 'Averias',
+      component: () => <Averia/>,
+      rol: [2],
+    },
+    {
+      name: 'Ver Averias',
+      component: () => <VerAveria/>,
+      rol: [1],
+    },
+    {
+      name: '2',
+      component: () => <Text>configuraciones</Text>,
+      rol: [3, 2],
+    },
+    {
+      name: 'Rentcars',
+      component: () => <StackScreensRentcar/>,
+      rol: [1],
+    },
+  ];
+
   return (
-    <Stack.Navigator
-      initialRouteName="LoginScreen"
-      screenOptions={{headerShown: false}}>
-      <Stack.Screen name="LoginScreen" component={LoginScreen} />
-      <Stack.Screen name="RegistroUsuario" component={RegisterScreen} />
-      <Stack.Screen name="DashBoard" component={Dashboard} />
-    </Stack.Navigator>
+    <>
+      <Drawer.Navigator initialRouteName="Home">
+        {pantallasDrawer.map(pantalla => {
+          if (pantalla.rol.includes(user.ID_tipoUsuario)) {
+            return <Drawer.Screen name={pantalla.name} component={pantalla.component} />;
+          }
+          return;
+        })}
+      </Drawer.Navigator>
+    </>
   );
 }
 
@@ -65,44 +86,30 @@ function StackScreensRentcar() {
   );
 }
 
-const Routes = () => {
-  const {user} = useContext(AppContext);
-
-  const pantallasDrawer = [
-    {
-      name: 'Home',
-      component: () => <Text>Lista de residenciales</Text>,
-      rol: [1],
-    },
-    {
-      name: 'ListaResidenciales',
-      component: () => <StackScreensUser />,
-      rol: [2, 4],
-    },
-    {
-      name: '2',
-      component: () => <Text>Lista de residenciales</Text>,
-      rol: [3, 2, 4],
-    },
-    {
-      name: 'Rentcars',
-      component: () => <StackScreensRentcar/>,
-      rol: [1, 4],
-    },
-  ];
-
+function StackScreensUser() {
   return (
-    <>
-      <Drawer.Navigator initialRouteName="Home">
-        {pantallasDrawer.map(pantalla => {
-          if (pantalla.rol.includes(user.rol)) {
-            return <Drawer.Screen name={pantalla.name} component={pantalla.component} />;
-          }
-          return;
-        })}
-      </Drawer.Navigator>
-    </>
+    <Stack.Navigator
+      initialRouteName="LoginScreen"
+      screenOptions={{headerShown: false}}>
+      <Stack.Screen name="LoginScreen" component={LoginScreen} />
+      <Stack.Screen name="RegistroUsuario" component={RegisterScreen} />
+      <Stack.Screen name="DashBoard" component={Dashboard} />
+    </Stack.Navigator>
   );
-};
+}
+
+function StackScreensAverias() {
+  return (
+    <Stack.Navigator
+      initialRouteName="verAverias"
+      screenOptions={{headerShown: false}}>
+      <Stack.Screen name="verAverias" component={VerAveria} />
+      <Stack.Screen name="detalleAveria" component={DetalleAveria} />
+     
+    </Stack.Navigator>
+  );
+}
+
+
 
 export default Routes;

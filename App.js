@@ -1,5 +1,6 @@
 import * as React from 'react';
-import Routes from './Routes';
+import Login from './Routes';
+
 import {AppContextProvider} from './context/AppContext';
 import {NavigationContainer} from '@react-navigation/native';
 import {DefaultTheme, Provider as PaperProvider} from 'react-native-paper';
@@ -18,7 +19,7 @@ const App = () => {
       <AppContextProvider>
         <PaperProvider theme={theme}>
           <NavigationContainer>
-            <Routes />
+            <Login />
           </NavigationContainer>
         </PaperProvider>
       </AppContextProvider>

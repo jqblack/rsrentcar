@@ -9,14 +9,14 @@ import {AppContext} from '../../context/AppContext';
 const verRentcars = ({navigation}) => {
   const [rentCars, setRentCars] = useState([]);
   const {user} = useContext(AppContext);
-  
+  console.log(user);
   useFocusEffect(
     React.useCallback(() => {
       const getData = async () => {
         try {
           const resultados = await ClientAxios.post(
             'rentcar/getAll',
-            {key: '416063c3d13d79e6e99a702fcd9cea10', data: {idUser:user.id}},
+            {key: '416063c3d13d79e6e99a702fcd9cea10', data: {idUser:user.ID}},
           );
           setRentCars(resultados.data);
         } catch (error) {
@@ -40,6 +40,7 @@ const verRentcars = ({navigation}) => {
             ? ''
             : 'Aún no tiene Rentcars'}
         </Headline>
+        
         <FlatList
           data={rentCars}
           keyExtractor={rentCars => rentCars.ID.toString()}

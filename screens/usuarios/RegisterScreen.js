@@ -91,7 +91,7 @@ const Registro = ({navigation}) => {
       if (res.data.key === '1') {
         alert('Se completó');
         console.log(res.data)
-        navigation.navigate('DashBoard');
+        navigation.goBack();
       } else {
         throw Error('No se ha podido completar');
       }
@@ -181,7 +181,7 @@ const Registro = ({navigation}) => {
     
         <View style={styles.inputs}>
           <DropDown
-            label={'Región'}
+            label={'Tipo de cuenta '}
             mode='outlined'
             value={tipoCuenta}
             setValue={setTipoCuenta}

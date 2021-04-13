@@ -1,76 +1,66 @@
-import React, {useContext, useState} from 'react';
-import {TouchableOpacity, StyleSheet, View, ScrollView} from 'react-native';
-import {Text} from 'react-native-paper';
+import React, { useContext, useState } from 'react';
+import { TouchableOpacity, StyleSheet, View, ScrollView } from 'react-native';
+import { Text } from 'react-native-paper';
 import Background from '../../components/Background';
 import Logo from '../../components/Logo';
 import Header from '../../components/Header';
 import Button from '../../components/Button';
 import TextInput from '../../components/TextInput';
 import BackButton from '../../components/BackButton';
-import {theme} from '../../core/theme';
-import {emailValidator} from '../../helpers/emailValidator';
-import {passwordValidator} from '../../helpers/passwordValidator';
-import {useNavigation} from '@react-navigation/native';
-import {NavigationActions} from 'react-navigation';
-import {AppContext} from '../../context/AppContext';
+import { theme } from '../../core/theme';
+import { UserValidator } from '../../helpers/userValidator';
+import { passwordValidator } from '../../helpers/passwordValidator';
+import ClientAxios from '../../helpers/clientAxios'
+import { AppContext } from '../../context/AppContext';
 
-export default function LoginScreen({navigation}) {
+export default function LoginScreen({ navigation }) {
   // const navigation = useNavigation()
-  const {user, setUser} = useContext(AppContext);
+  const { user, setUser } = useContext(AppContext);
+  const [usuario, setUsuario] = useState({ value: '', error: '' });
+  const [password, setPassword] = useState({ value: '', error: '' });
 
-  const [email, setEmail] = useState({value: '', error: ''});
-  const [password, setPassword] = useState({value: '', error: ''});
 
-  // const reset = () => {
-  //   return this.props
-  //     .navigation
-  //     .dispatch(NavigationActions.reset(
-  //       {
-  //         index: 0,
-  //         actions: [
-  //           NavigationActions.navigate({ routes: [{ name: 'Dashboard' }] })
-  //         ]
-  //       }));
-  // }
+  const getUser = async () => {
+    try {
+      const resultados = await ClientAxios.post('login/verificar', {
+        key: '416063c3d13d79e6e99a702fcd9cea10',
+        data: {
+          user: usuario.value,
+          pass: password.value,
+        },
+      });
+      setUser(resultados.data);
+      console.log(resultados.data);
+      return resultados.data;
+    } catch (error) {
+      console.log(error);
+    }
+  }
 
-  const onLoginPressed = () => {
-    const emailError = emailValidator(email.value);
+
+  const onLoginPressed = async () => {
+    
+    const userError=UserValidator(usuario.value)
     const passwordError = passwordValidator(password.value);
-    if (emailError || passwordError) {
-      setEmail({...email, error: emailError});
-      setPassword({...password, error: passwordError});
+    if (userError||passwordError) {
+      setUsuario({ ...usuario, error: emailError });
+      setPassword({ ...password, error: passwordError });
       return;
     }
-
-    navigation.reset({
-      index: 0,
-      routes: [{name: 'Dashboard'}],
-    });
-  };
-
-  const getMoviesFromApiAsync = async () => {
-    let data = JSON.stringify({
-      data: {midescri: 'test react'},
-    });
-    console.log(data);
-    try {
-      let response = await fetch('http://10.0.0.12:8080/API/residencial/test', {
-        method: 'POST',
-        headers: {
-          Accept: 'application/json',
-          'Content-Type': 'application/json',
-        },
-        body: JSON.stringify({
-          key: '291290336b75b259b77e181c87cc974f',
-          data: {midescri: 'test react2'},
-        }),
-      });
-      let json = await response.json();
-      return console.warn(json.key);
-    } catch (error) {
-      console.error(error);
+ //validar en api
+ const datos = await getUser();
+    if( Object.keys(datos).length === 0){
+      setUsuario({...usuario, error:'El usuario o la contrasena no son correctos'})
+      console.log('aqui llego')
+    return;
     }
+    console.log('no entro en el if')
+   
+    navigation.navigate('DashBoard');
+
   };
+
+
 
   return (
     <ScrollView>
@@ -79,22 +69,22 @@ export default function LoginScreen({navigation}) {
         <Logo />
         <Header>RS Rentcar</Header>
         <TextInput
-          label="Email"
+          label="Usuario"
           returnKeyType="next"
-          value={email.value}
-          onChangeText={text => setEmail({value: text, error: ''})}
-          error={!!email.error}
-          errorText={email.error}
+          value={usuario.value}
+          onChangeText={text => setUsuario({ value: text, error: '' })}
+          error={!!usuario.error}
+          errorText={usuario.error}
           autoCapitalize="none"
-          autoCompleteType="email"
-          textContentType="emailAddress"
-          keyboardType="email-address"
+          
+          
+         
         />
         <TextInput
           label="Password"
           returnKeyType="done"
           value={password.value}
-          onChangeText={text => setPassword({value: text, error: ''})}
+          onChangeText={text => setPassword({ value: text, error: '' })}
           error={!!password.error}
           errorText={password.error}
           secureTextEntry
@@ -108,9 +98,7 @@ export default function LoginScreen({navigation}) {
         <Button mode="contained" onPress={onLoginPressed}>
           Login
         </Button>
-        <Button mode="contained" onPress={getMoviesFromApiAsync}>
-          API
-        </Button>
+
         <View style={styles.row}>
           <Text>Don’t have an account? </Text>
           <TouchableOpacity

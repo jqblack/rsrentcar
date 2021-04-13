@@ -1,11 +1,13 @@
-import React from 'react'
+import React, {useContext} from 'react'
 import Background from '../../components/Background'
 import Logo from '../../components/Logo'
 import Header from '../../components/Header'
 import Paragraph from '../../components/Paragraph'
 import Button from '../../components/Button'
-
+import Appcontext from '../../context/AppContext'
 export default function Dashboard({ navigation }) {
+  const {user} = useContext(Appcontext);
+
   return (
     <Background>
       <Logo />
@@ -16,11 +18,8 @@ export default function Dashboard({ navigation }) {
       </Paragraph>
       <Button
         mode="outlined"
-        onPress={() =>
-          navigation.reset({
-            index: 0,
-            routes: [{ name: 'Login' }],
-          })
+        onPress={() =>console.log(user)
+          
         }
       >
         Logout
