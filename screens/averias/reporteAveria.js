@@ -5,7 +5,7 @@ import globalStyles from '../../Styles/global';
 import ClientAxios from '../../helpers/clientAxios';
 import {useNavigation} from '@react-navigation/core';
 
-const nuevaTorre = ({route}) => {
+const nuevaAveria = ({route}) => {
   const navigation = useNavigation();
   const [descripcion, setDescripcion] = useState('');
   const [car, setCar] = useState({});
@@ -56,7 +56,6 @@ const nuevaTorre = ({route}) => {
         <Headline style={globalStyles.titulo}>
           Reporte a: mercedes benz
         </Headline>
-
         <TextInput
           mode="outlined"
           multiline
@@ -72,4 +71,4 @@ const nuevaTorre = ({route}) => {
   );
 };
 
-export default nuevaTorre;
+export default nuevaAveria;

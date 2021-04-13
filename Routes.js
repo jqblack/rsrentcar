@@ -21,6 +21,7 @@ import {AppContext} from './context/AppContext';
 import Averia from './screens/averias/reporteAveria';
 import VerAveria from './screens/averias/verAverias';
 import DetalleAveria from './screens/averias/detalleAveria';
+import CarrosRentado from './screens/rentcar/verCarrosRent'
 
 //stack
 const Stack = createStackNavigator();
@@ -44,6 +45,12 @@ const Routes = () => {
       component: () => <Averia />,
       rol: [2],
     },
+    {
+      name: 'Carros Rentados',
+      component: () => <CarrosRentado />,
+      rol: [1],
+    },
+
     {
       name: 'Ver Averias',
       component: () => <StackScreensAverias />,

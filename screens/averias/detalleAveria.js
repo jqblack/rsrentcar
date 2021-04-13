@@ -1,9 +1,7 @@
 import React, {useEffect, useState} from 'react';
 import {View, ToastAndroid} from 'react-native';
 import {
-  TextInput,
   Button,
-  Headline,
   Appbar,
   Card,
   Title,
@@ -54,7 +52,6 @@ const DetalleAveria = ({navigation, route}) => {
             </Title>
             <Paragraph>Descripcion: {averia.descripcion}</Paragraph>
           </Card.Content>
-
           <Card.Actions>
             <Button onPress={() => completado()}>Completado</Button>
           </Card.Actions>

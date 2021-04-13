@@ -1,7 +1,7 @@
 import {useState} from 'react';
 import * as React from 'react';
 import {View, StyleSheet, TouchableOpacity, ScrollView} from 'react-native';
-import {RadioButton, Text} from 'react-native-paper';
+import {RadioButton, Text, TextInput as PaperInput} from 'react-native-paper';
 import Background from '../../components/Background';
 import Logo from '../../components/Logo';
 import ReadMeExampleSingle from '../../components/Datapiker';
@@ -16,6 +16,7 @@ import {nameValidator} from '../../helpers/nameValidator';
 import DateTimePickerModal from 'react-native-modal-datetime-picker';
 import DropDown from 'react-native-paper-dropdown';
 import ClientAxios from '../../helpers/clientAxios';
+// import globalStyles from '../../Styles/global'
 const list = [
   {label: 'Administrador', value: '1'},
   {label: 'Cliente', value: '2'},
@@ -131,7 +132,7 @@ const Registro = ({navigation}) => {
   return (
     <>
       <ScrollView>
-        <View>
+        <View style={styles.container} >
           <BackButton />
           <Logo />
           <Header>Create Account</Header>
@@ -176,7 +177,7 @@ const Registro = ({navigation}) => {
             errorText={nameuser.error}
           />
 
-          <View style={styles.inputs}>
+          <View >
             <DropDown
               label={'Tipo de cuenta '}
               mode="outlined"
@@ -187,7 +188,7 @@ const Registro = ({navigation}) => {
               showDropDown={() => setMostrarTipoCuenta(true)}
               onDismiss={() => setMostrarTipoCuenta(false)}
               inputProps={{
-                right: <TextInput.Icon name={'menu-down'} />,
+                right: <PaperInput.Icon name={'menu-down'} />,
               }}
               theme={theme}
             />
@@ -222,6 +223,12 @@ const Registro = ({navigation}) => {
 };
 
 const styles = StyleSheet.create({
+  container:{
+    flex: 1,
+    padding: 20,
+  // alignItems: 'center',
+    justifyContent: 'center',
+  },
   row: {
     flexDirection: 'row',
     marginTop: 4,
