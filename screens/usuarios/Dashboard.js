@@ -1,13 +1,15 @@
-import React, {useContext} from 'react'
-import Background from '../../components/Background'
-import Logo from '../../components/Logo'
-import Header from '../../components/Header'
-import Paragraph from '../../components/Paragraph'
-import Button from '../../components/Button'
-import Appcontext from '../../context/AppContext'
-export default function Dashboard({ navigation }) {
-  const {user} = useContext(Appcontext);
+import React, {useContext} from 'react';
+import Background from '../../components/Background';
+import Logo from '../../components/Logo';
+import Header from '../../components/Header';
+import Paragraph from '../../components/Paragraph';
+import Button from '../../components/Button';
+import {AppContext} from '../../context/AppContext';
+import {useNavigation} from '@react-navigation/core';
 
+export default function Dashboard({}) {
+  const {user, setUser} = useContext(AppContext);
+  const navigation = useNavigation();
   return (
     <Background>
       <Logo />
@@ -18,12 +20,12 @@ export default function Dashboard({ navigation }) {
       </Paragraph>
       <Button
         mode="outlined"
-        onPress={() =>console.log(user)
-          
-        }
-      >
+        onPress={() => {
+          setUser({nombre: 'pepito', ID_tipoUsuario: 2, ID: 2});
+          navigation.navigate('LoginScreen');
+        }}>
         Logout
       </Button>
     </Background>
-  )
+  );
 }

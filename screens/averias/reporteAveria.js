@@ -1,19 +1,18 @@
 import React, {useState} from 'react';
-import {View} from 'react-native';
-import {TextInput, Button,Headline,Appbar} from 'react-native-paper';
+import {ToastAndroid, View} from 'react-native';
+import {TextInput, Button, Headline, Appbar} from 'react-native-paper';
 import globalStyles from '../../Styles/global';
-import ClientAxios from '../../helpers/clientAxios'
+import ClientAxios from '../../helpers/clientAxios';
+import {useNavigation} from '@react-navigation/core';
 
-const nuevaTorre = ({navigation,route}) => {
+const nuevaTorre = ({route}) => {
+  const navigation = useNavigation();
   const [descripcion, setDescripcion] = useState('');
-    const [car,setCar] =useState({})
-
+  const [car, setCar] = useState({});
 
   const guardarAveria = async () => {
     //validar form
-    if (
-      descripcion === '' 
-    ) {
+    if (descripcion === '') {
       alert('Revise los campos');
       return;
     }
@@ -23,10 +22,10 @@ const nuevaTorre = ({navigation,route}) => {
     const averia = {
       idCar: 1,
       descri: descripcion,
-      idRent:3,
-      idUser:1
+      idRent: 3,
+      idUser: 1,
     };
-    
+
     //insert
     try {
       const res = await ClientAxios.post('complementos/insertAveria', {
@@ -34,8 +33,9 @@ const nuevaTorre = ({navigation,route}) => {
         data: averia,
       });
       if (res.data.key === '1') {
-        console.log(res.data)
-        
+        console.log(res.data);
+        ToastAndroid.show('Se completó la avería. !', ToastAndroid.SHORT);
+        navigation.goBack();
       } else {
         throw Error('No se ha podido completar');
       }
@@ -43,32 +43,31 @@ const nuevaTorre = ({navigation,route}) => {
       console.log(error);
       alert(error);
     }
-    
     //limpiar form
     //redireccionar
   };
 
   return (
-      <>
-       <Appbar.Header>
-        
+    <>
+      <Appbar.Header>
         <Appbar.Content title="Reporte de averías" />
       </Appbar.Header>
-    <View style={globalStyles.contenedor}>
-
-    <Headline style={globalStyles.titulo}>
+      <View style={globalStyles.contenedor}>
+        <Headline style={globalStyles.titulo}>
           Reporte a: mercedes benz
         </Headline>
 
-      <TextInput
-        label="Descripcion del problema"
-        placeholder=""
-        style={globalStyles.inputs}
-        onChangeText={texto => setDescripcion(texto)}
-        value={descripcion}
-      />
-      <Button onPress={() => guardarAveria()}>Reportar Averia</Button>
-    </View>
+        <TextInput
+          mode="outlined"
+          multiline
+          numberOfLines={10} 
+          placeholder="Descripcion del problema"
+          style={globalStyles.inputs}
+          onChangeText={texto => setDescripcion(texto)}
+          value={descripcion}
+        />
+        <Button onPress={() => guardarAveria()}>Reportar Averia</Button>
+      </View>
     </>
   );
 };

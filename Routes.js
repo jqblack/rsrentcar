@@ -10,17 +10,17 @@ import NuevoDepartamento from './screens/departamentos';
 import Servicios from './screens/servicios';
 import VerServisios from './screens/verServicios';
 import {createDrawerNavigator} from '@react-navigation/drawer';
-import LoginScreen from './screens/usuarios/LoginScreen'
-import RegisterScreen from './screens/usuarios/RegisterScreen'
-import Dashboard from './screens/usuarios/Dashboard'
-import AgregarRencar from './screens/rentcar/agregarRentcar'
-import verRencar from './screens/rentcar/verRentcars'
-import verCarros from './screens/rentcar/verCarros'
-import AgregarCarro from './screens/rentcar/agregarCarros'
+import LoginScreen from './screens/usuarios/LoginScreen';
+import RegisterScreen from './screens/usuarios/RegisterScreen';
+import Dashboard from './screens/usuarios/Dashboard';
+import AgregarRencar from './screens/rentcar/agregarRentcar';
+import verRencar from './screens/rentcar/verRentcars';
+import verCarros from './screens/rentcar/verCarros';
+import AgregarCarro from './screens/rentcar/agregarCarros';
 import {AppContext} from './context/AppContext';
-import Averia from './screens/averias/reporteAveria' 
-import VerAveria from './screens/averias/verAverias' 
-import DetalleAveria from './screens/averias/detalleAveria'
+import Averia from './screens/averias/reporteAveria';
+import VerAveria from './screens/averias/verAverias';
+import DetalleAveria from './screens/averias/detalleAveria';
 
 //stack
 const Stack = createStackNavigator();
@@ -28,33 +28,35 @@ const Drawer = createDrawerNavigator();
 
 //DashBoard
 
+const Asda = () => <Text>Text</Text>;
+
 const Routes = () => {
   const {user} = useContext(AppContext);
 
   const pantallasDrawer = [
     {
-      name: 'Home',
-      component: () => <StackScreensUser/> ,
-      rol: [1],
+      name: 'DashBoard',
+      component: () => <Dashboard />,
+      rol: [1, 2],
     },
     {
       name: 'Averias',
-      component: () => <Averia/>,
+      component: () => <Averia />,
       rol: [2],
     },
     {
       name: 'Ver Averias',
-      component: () => <VerAveria/>,
+      component: () => <StackScreensAverias />,
       rol: [1],
     },
     {
       name: '2',
-      component: () => <Text>configuraciones</Text>,
+      component: () => <Asda />,
       rol: [3, 2],
     },
     {
       name: 'Rentcars',
-      component: () => <StackScreensRentcar/>,
+      component: () => <StackScreensRentcar />,
       rol: [1],
     },
   ];
@@ -64,14 +66,18 @@ const Routes = () => {
       <Drawer.Navigator initialRouteName="Home">
         {pantallasDrawer.map(pantalla => {
           if (pantalla.rol.includes(user.ID_tipoUsuario)) {
-            return <Drawer.Screen name={pantalla.name} component={pantalla.component} />;
+            return (
+              <Drawer.Screen name={pantalla.name} key={pantalla.name}>
+                {pantalla.component}
+              </Drawer.Screen>
+            );
           }
           return;
         })}
       </Drawer.Navigator>
     </>
   );
-}
+};
 
 function StackScreensRentcar() {
   return (
@@ -91,9 +97,10 @@ function StackScreensUser() {
     <Stack.Navigator
       initialRouteName="LoginScreen"
       screenOptions={{headerShown: false}}>
+      <Stack.Screen name="Stack" component={Routes} />
       <Stack.Screen name="LoginScreen" component={LoginScreen} />
       <Stack.Screen name="RegistroUsuario" component={RegisterScreen} />
-      <Stack.Screen name="DashBoard" component={Dashboard} />
+      {/* <Stack.Screen name="DashBoard" component={Dashboard} /> */}
     </Stack.Navigator>
   );
 }
@@ -105,11 +112,8 @@ function StackScreensAverias() {
       screenOptions={{headerShown: false}}>
       <Stack.Screen name="verAverias" component={VerAveria} />
       <Stack.Screen name="detalleAveria" component={DetalleAveria} />
-     
     </Stack.Navigator>
   );
 }
 
-
-
-export default Routes;
+export default StackScreensUser;
