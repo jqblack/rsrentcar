@@ -22,6 +22,7 @@ import Averia from './screens/averias/reporteAveria';
 import VerAveria from './screens/averias/verAverias';
 import DetalleAveria from './screens/averias/detalleAveria';
 import CarrosRentado from './screens/rentcar/verCarrosRent'
+import DetalleRentado from './screens/rentcar/detalleCarroRent'
 
 //stack
 const Stack = createStackNavigator();
@@ -47,7 +48,7 @@ const Routes = () => {
     },
     {
       name: 'Carros Rentados',
-      component: () => <CarrosRentado />,
+      component: () => <StackScreensRentas />,
       rol: [1],
     },
 
@@ -119,6 +120,17 @@ function StackScreensAverias() {
       screenOptions={{headerShown: false}}>
       <Stack.Screen name="verAverias" component={VerAveria} />
       <Stack.Screen name="detalleAveria" component={DetalleAveria} />
+    </Stack.Navigator>
+  );
+}
+
+function StackScreensRentas() {
+  return (
+    <Stack.Navigator
+      initialRouteName="Ver carros rentados"
+      screenOptions={{headerShown: false}}>
+      <Stack.Screen name="Ver carros rentados" component={CarrosRentado} />
+      <Stack.Screen name="detalleCarRented" component={DetalleRentado} />
     </Stack.Navigator>
   );
 }
