@@ -56,12 +56,12 @@ const detalleAlquier = ({ navigation, route }) => {
             alert('La calificacion no puede estar vacío')
             return
         }
-        console.log(item.ID);
+        console.log(item.ID_Carro);
         
         try {
             const resultados = await ClientAxios.post('rentcar/devolverCar', {
                 key: '416063c3d13d79e6e99a702fcd9cea10',
-                data: { id: item.ID, score:calificacion },
+                data: { idCar:item.ID_Carro, id: item.ID, score:calificacion },
             });
             //setCarros(resultados.data);
             // console.log(resultados.data);
