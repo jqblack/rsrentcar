@@ -36,7 +36,7 @@ const ConsultaVehi = ({ navigation, route }) => {
                 data: {score:user.currentScore},
               });
               setCarros(resultados.data);
-              console.log(resultados.data);
+              
             } catch (error) {
               console.log(error);
             }
@@ -53,7 +53,7 @@ const ConsultaVehi = ({ navigation, route }) => {
         // console.log(item);
         return (
             <TouchableWithoutFeedback>
-                <Card onPress={() => navigation.navigate('detalle', { item, user })}>
+                <Card onPress={() => navigation.navigate('detalle', { item, user:user })}>
                     <Card.Content>
                         <Card.Cover source={{ uri: 'https://i.picsum.photos/id/863/700/700.jpg?hmac=0CH3HWqzcDYHNml_TBbqPWK1AY1te1JTmJXbb5UZpFY' }} />
                         <Title>{nombreCar + ' - ' + nombrerent}</Title>
@@ -62,7 +62,7 @@ const ConsultaVehi = ({ navigation, route }) => {
 
                     </Card.Content>
                     <Card.Actions>
-                        <Button onPress={() => navigation.navigate('detalle', { item })}>Detalles</Button>
+                        <Button onPress={() => navigation.navigate('detalle', { item, user:user })}>Detalles</Button>
                     </Card.Actions>
                 </Card>
             </TouchableWithoutFeedback>

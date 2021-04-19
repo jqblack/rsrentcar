@@ -29,7 +29,7 @@ const detalleConsutaVehi = ({ navigation, route }) => {
         const  userid=route.params.user;
 
     const Alquilar = async () => {
-      
+    
         if (Number(dias) <= 0 || Number(dias) > 30) {
             alert('ingrese los días en un rango del 1 al 30')
             return
@@ -47,7 +47,7 @@ const detalleConsutaVehi = ({ navigation, route }) => {
             });
             //setCarros(resultados.data);
             // console.log(resultados.data);
-            navigation.navigate('Rentar un Vehiculo');
+            navigation.goBack();
         } catch (error) {
             console.log(error);
         }

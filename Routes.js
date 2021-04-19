@@ -1,5 +1,6 @@
 import {Text} from 'react-native';
 import React, {useContext} from 'react';
+import {useNavigation} from '@react-navigation/native'
 import VerResidenciales from './screens/verResidenciales';
 import VerApartamentos from './screens/verApartamentos';
 import NuevoResidencial from './screens/RegistroResidencial';
@@ -35,7 +36,7 @@ const Asda = () => <Text>Text</Text>;
 
 const Routes = () => {
   const {user} = useContext(AppContext);
-
+  
   const pantallasDrawer = [
     {
       name: 'DashBoard',
@@ -52,6 +53,7 @@ const Routes = () => {
       component: () => <Averia />,
       rol: [2],
     },
+  
     {
       name: 'Carros Rentados',
       component: () => <StackScreensRentas />,
@@ -62,11 +64,6 @@ const Routes = () => {
       name: 'Ver Averias',
       component: () => <StackScreensAverias />,
       rol: [1],
-    },
-    {
-      name: '2',
-      component: () => <Asda />,
-      rol: [3, 2],
     },
     {
       name: 'Rentcars',

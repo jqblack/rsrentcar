@@ -24,9 +24,9 @@ import { AppContext } from '../../context/AppContext';
 
 const detalleAlquier = ({ navigation, route }) => {
         const [calificacion,setCalificacion]=useState('');
-        console.log(route.params.item);
+        // console.log(route.params.item);
         const item=route.params.item;
-        const  userid=route.params.user;
+       
     //   useFocusEffect(
     //     React.useCallback(() => {
     //       const getData = async () => {
@@ -56,7 +56,7 @@ const detalleAlquier = ({ navigation, route }) => {
             alert('La calificacion no puede estar vacío')
             return
         }
-        console.log(item.ID_Carro);
+       
         
         try {
             const resultados = await ClientAxios.post('rentcar/devolverCar', {
